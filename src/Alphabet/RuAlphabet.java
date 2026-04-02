@@ -8,7 +8,7 @@ public class RuAlphabet {
             'а','б','в','г','д','е','ё','ж','з','и','й','к','л','м','н','о','п','р','с','т',
             'у','ф','х','ц','ч','ш','щ','ъ','ы','ь','э','ю','я'
     };
-    private static final Character[] SYMBOL = {'.', ',', '«', '»', '"', '\'', ':', '-', '!', '?', ' '};
+    private static final Character[] SYMBOL = {'.', ',', '«', '»', '"', '\'', ':', '-', '!', '?',';', '—', '(', ')', ' '};
 
     private final List<Character> char_List;
     private final Map<Character, Integer> char_Map;
