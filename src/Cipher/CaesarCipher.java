@@ -12,23 +12,35 @@ public class CaesarCipher {
         this.ruAlphabet = alphabet;
     }
 
+    /**
+     * Функция для шифрации и дешифрации
+     * Для дешифрации вызывать функцию, передавая -key
+     * Случай, когда newIndex мог стать отрицательным, обработан в 40-41 строках
+     * @param read
+     * @param key
+     * @return
+     */
     public List<String> encryption(List<String> read, int key){
-        List<String> data = read;
         List<String> result = new ArrayList<>();
 
         char current;
         int index;
+        int newIndex;
         boolean isUpperCase;
         String processed;
 
-        for(int i = 0; i < data.size(); i++){
+        for(int i = 0; i < read.size(); i++){
             processed = "";
-            for(int j = 0; j < data.get(i).length(); j++){
-                current = data.get(i).charAt(j);
+            for(int j = 0; j < read.get(i).length(); j++){
+                current = read.get(i).charAt(j);
                 isUpperCase = Character.isUpperCase(current);
                 index = ruAlphabet.getIndex(current);
+
                 if (Character.isLetter(current)){
-                    current = ruAlphabet.getChar((index + key) % ruAlphabet.getSizeRuСhar());
+                    newIndex = (index + key) % ruAlphabet.getSizeRuChar();
+                    if(newIndex < 0){ newIndex += ruAlphabet.getSizeRuChar(); }
+
+                    current = ruAlphabet.getChar(newIndex);
                     if (isUpperCase){
                         current = Character.toUpperCase(current);
                     }
@@ -43,6 +55,4 @@ public class CaesarCipher {
     public List<String> decryption(List<String> data, int key){
         return encryption(data, -key);
     }
-
-
 }

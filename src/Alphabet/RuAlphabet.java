@@ -25,7 +25,7 @@ public class RuAlphabet {
         }
     }
 
-    public int getSizeRuСhar(){
+    public int getSizeRuChar(){
         return RU_CHAR.length;
     }
 
