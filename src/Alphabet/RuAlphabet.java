@@ -25,6 +25,10 @@ public class RuAlphabet {
         }
     }
 
+    public int getSizeRuСhar(){
+        return RU_CHAR.length;
+    }
+
     private int getSize(){
         return char_List.size();
     }
@@ -35,11 +39,11 @@ public class RuAlphabet {
      * @return
      */
     public int getIndex(Character symbol){
-        if(!char_Map.containsKey(symbol)){
+        if(!char_Map.containsKey(Character.toLowerCase(symbol))){
             throw new AlphabetException("Некорректный символ " + symbol +
                                         " \nДопустимы символы русского языка");
         }
-        return char_Map.get(symbol);
+        return char_Map.get(Character.toLowerCase(symbol));
     }
 
     /**
