@@ -1,6 +1,7 @@
 import Alphabet.RuAlphabet;
 import Cipher.CaesarCipher;
 import Exception.*;
+import HackingCipher.StatisticalAnalyzer;
 
 import java.util.List;
 import java.util.Scanner;
@@ -9,9 +10,10 @@ public class MainApp {
     private static final String INFORMATION = "Привет, в этом приложении ты можешь: \n" +
                                               "1. Зашифровать файл\n" +
                                               "2. Расшифровать файл\n" +
-                                              "3. Выход";
+                                              "3. Взломать шифр при помощи статистического анализа\n" +
+                                              "4. Выход";
 
-    private static final String SWITCH_MODE = "\nВыбери режим работы, введя номер от 1 до 3: ";
+    private static final String SWITCH_MODE = "\nВыбери режим работы, введя номер от 1 до 4: ";
 
     static void main() {
         int key;
@@ -29,7 +31,7 @@ public class MainApp {
 
         System.out.println(INFORMATION);
 
-        while(mode != 3){
+        while(mode != 4){
            try{
                 System.out.println(SWITCH_MODE);
                 mode = scanner.nextInt();
@@ -95,10 +97,30 @@ public class MainApp {
                         outputFile.setLength(0);
                         break;
                     case 3:
+                        System.out.println("Введите путь к входному файлу:");
+                        inputFile.append(scanner.nextLine());
+
+                        System.out.println("Введите путь к выходному файлу:");
+                        outputFile.append(scanner.nextLine());
+
+                        System.out.println("Начинаю взлом...");
+                        data = file.fileReader(inputFile.toString());
+                        key = StatisticalAnalyzer.getDecryptedKey(data);
+                        result = cipher.decryption(data, key);
+                        file.fileWriter(outputFile.toString(), result);
+                        System.out.println("Взлом завершен\n" +
+                                "Результаты в файле " + outputFile);
+
+                        data.clear();
+                        result.clear();
+                        inputFile.setLength(0);
+                        outputFile.setLength(0);
+                        break;
+                    case 4:
                         System.out.println("До свидания!");
                         break;
                     default:
-                        System.out.println("Неверный режим. Введите число от 1 до 3");
+                        System.out.println("Неверный режим. Введите число от 1 до 4");
                 }
             } catch (FileProcessException | AlphabetException e){
                System.out.println("   " + e.getMessage());
