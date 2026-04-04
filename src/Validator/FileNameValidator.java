@@ -23,7 +23,7 @@ public class FileNameValidator {
      * @param fileName
      * @return
      */
-    public Path validateForFile(String fileName){
+    public static Path validateForFile(String fileName){
         Path path = validatePath(fileName);
         if(!Files.exists(path)){
             throw new FileProcessException(String.format("По указанному пути %s файла не существует", fileName));
@@ -41,7 +41,7 @@ public class FileNameValidator {
      * @param fileName
      * @return
      */
-    public Path validatePath(String fileName){
+    public static Path validatePath(String fileName){
         String stringSeparator = Pattern.quote(FileSystems.getDefault().getSeparator());
         for(String str: fileName.split(stringSeparator)){
             if (FORBIDDEN_DIR_FILES.contains(str)){
@@ -56,10 +56,10 @@ public class FileNameValidator {
     }
 
     /**
-     * Проверка на доступ для чтения
+     * Проверка на доступ для записи
      * @param fileName
      */
-    public void validateForWriting(String fileName){
+    public static void validateForWriting(String fileName){
         Path path = validateForFile(fileName);
 
         if (!Files.isWritable(path)){
@@ -71,7 +71,7 @@ public class FileNameValidator {
      * Проверка на доступ для чтения
      * @param fileName
      */
-    public void validateForReading(String fileName){
+    public static void validateForReading(String fileName){
         Path path = validateForFile(fileName);
 
         if(!Files.isReadable(path)){     // isReadable - true, если доступен для чтения

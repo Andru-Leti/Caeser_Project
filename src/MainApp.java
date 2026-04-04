@@ -1,5 +1,6 @@
 import Alphabet.RuAlphabet;
 import Cipher.CaesarCipher;
+import Exception.*;
 
 import java.util.List;
 import java.util.Scanner;
@@ -29,7 +30,7 @@ public class MainApp {
         System.out.println(INFORMATION);
 
         while(mode != 3){
-//            try{
+           try{
                 System.out.println(SWITCH_MODE);
                 mode = scanner.nextInt();
                 scanner.nextLine();
@@ -99,11 +100,13 @@ public class MainApp {
                     default:
                         System.out.println("Неверный режим. Введите число от 1 до 3");
                 }
-//            } catch(Exception e){
-//                System.out.println("Ошибка ввода! Пожалуйста, введите число.");
-//                scanner.nextLine();
-//                mode = 0;
-//            }
+            } catch (FileProcessException | AlphabetException e){
+               System.out.println("   " + e.getMessage());
+            } catch (Exception e){
+               System.out.println("Ошибка ввода!");
+               scanner.nextLine();
+               mode = 0;
+           }
         }
     }
 
